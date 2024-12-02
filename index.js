@@ -1,16 +1,26 @@
-const bodyEl = document.querySelector("body");
+const containerEl = document.querySelector(".container");
 
-bodyEl.addEventListener("mousemove", (event) => {
-  const xPos = event.offsetX;
-  const yPos = event.offsetY;
-  const spanEl = document.createElement("span");
-  spanEl.style.left = xPos + "px ";
-  spanEl.style.top = yPos + "px";
-  const size = Math.random() * 100;
-  spanEl.style.width = size + "px";
-  spanEl.style.height = size + "px";
-  bodyEl.appendChild(spanEl);
-  setTimeout(() => {
-    spanEl.remove();
-  }, 3000);
-});
+const elements = ["Youtuber", "Developer", "Frealancer", "Instructor"];
+
+let elementIndex = 0;
+
+let charIndex = 0;
+
+currentElement();
+
+function currentElement() {
+  charIndex++;
+  containerEl.innerHTML = `<h1>I am ${
+    elements[elementIndex] == "Instructor" ? "an" : "a"
+  } ${elements[elementIndex].slice(0, charIndex)}</h1>`;
+
+  if (charIndex === elements[elementIndex].length) {
+    elementIndex++;
+    charIndex = 0;
+  }
+
+  if (elementIndex === elements.length) {
+    elementIndex = 0;
+  }
+  setTimeout(currentElement, 200);
+}
